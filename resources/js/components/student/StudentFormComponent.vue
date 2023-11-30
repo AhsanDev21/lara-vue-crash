@@ -39,6 +39,9 @@
 <script>
     export default {
         name: 'student-form-component',
+        props: {
+            scope: String,
+        },
         mounted() {
             console.log('Component mounted.')
         },
@@ -60,7 +63,11 @@
                 window.location.href = '/students';
             },
             saveForm(formName){
-
+                this.$refs[formName].validate( () => {
+                    if(valid){
+                        this.$store.dispatch('saveStudent', this.model);
+                    }
+                })
             }
         }
     }
